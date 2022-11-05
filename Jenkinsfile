@@ -4,7 +4,7 @@ pipeline {
    stages{
         stage('GIT') { 
             steps { 
-               echo'git' 
+               git branch: 'amani', credentialsId: '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', url: 'https://github.com/HssanMahdi/backfordevops.git'
                 
             }
          }
@@ -19,6 +19,12 @@ pipeline {
             steps { 
                sh' mvn compile' 
                 
+            }
+         }
+
+         stage("Unit tests") {
+            steps {
+                  sh "mvn test"
             }
          }
 
