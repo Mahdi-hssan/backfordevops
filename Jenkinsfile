@@ -1,4 +1,13 @@
 pipeline { 
+	environment { 
+
+        registry = "mahdihssan/tpachat" 
+
+        registryCredential = 'dockerHub' 
+
+        dockerImage = ''
+
+    }
      agent any
   
    stages{
@@ -37,6 +46,22 @@ pipeline {
 					nexusPublisher nexusInstanceId: 'Nexus', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/tpAchatProject-1.0.jar']], mavenCoordinate: [artifactId: 'tpAchatProject', groupId: 'com.esprit.examen', packaging: 'jar', version: '1.0']]]
 				}
             }
+        }
+		stage('Building our image') {
+         steps {
+         script {
+                dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+                } 
+         }
+         stage('Deploy our image') {
+         steps {
+         script {
+             docker.withRegistry( '', registryCredential ) {
+             dockerImage.push()
+				}
+            }
+          }
         }
    }
 }
