@@ -13,11 +13,16 @@ pipeline {
 		stage('SonarQube') {
 			steps {
 				script {
-					withSonarQubeEnv('sonarQubeMahdi') {
+					withSonarQubeEnv('sonarQube') {
 						sh' mvn sonar:sonar'
 					}
 				}
 			}
 		}
+		stage ('NEXUS DEPLOYEMENT') {
+            steps {
+                sh 'mvn deploy -DskipTests'
+            }
+        }
    }
 }
