@@ -1,6 +1,12 @@
 package com.esprit.examen;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,20 +15,19 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.esprit.examen.entities.Facture;
 import com.esprit.examen.repositories.FactureRepository;
 import com.esprit.examen.services.FactureServiceImpl;
 
-import lombok.extern.slf4j.Slf4j;
 
-
-@Slf4j
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class FactureServiceImplTest {
 
@@ -43,10 +48,22 @@ public class FactureServiceImplTest {
 	
 	@Test
 	public void retrieveFactureTest() {
-		Mockito.when(factureRepo.findById(Mockito.anyLong())).thenReturn(Optional.of(f));
-		Facture facture = factureService.retrieveFacture((long) 1);
-		assertNotNull(facture);
-		log.info("get =>" + facture.toString());
-		
+		Mockito.when(factureRepo.findById(f.getIdFacture())).thenReturn(Optional.of(f));
+		assertEquals(f, factureService.retrieveFacture(f.getIdFacture()));		
 	}
+	
+	@Test
+	public void retrieveAllFacturesTest() {
+		Mockito.when(factureRepo.findAll()).thenReturn(list);
+		assertEquals(2, factureService.retrieveAllFactures().size());
+	}
+	
+	@Test
+	public void addFactureTest() {
+		Mockito.when(factureRepo.save(f)).thenReturn(f);
+		assertNotNull(f);
+		Facture factPersistee = factureService.addFacture(f);
+		assertEquals(f, factPersistee);
+	}
+	
 }
