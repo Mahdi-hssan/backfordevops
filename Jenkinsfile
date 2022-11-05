@@ -36,6 +36,11 @@ pipeline {
             }
         }
 		
+		stage('MVN NEXUS'){
+            steps {
+                sh 'mvn clean deploy'
+            }
+        }
 		
    }
 }
