@@ -10,7 +10,7 @@ pipeline {
                 
             }
         }
-		stage('SonarQube') {
+		/*stage('SonarQube') {
 			steps {
 				script {
 					withSonarQubeEnv('sonarQube') {
@@ -18,7 +18,7 @@ pipeline {
 					}
 				}
 			}
-		}
+		}*/
 		stage ('NEXUS DEPLOYEMENT') {
             steps {
                 script {
