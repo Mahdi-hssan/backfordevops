@@ -19,11 +19,9 @@ pipeline {
 				}
 			}
 		}*/
-		stage ('NEXUS DEPLOYEMENT') {
+		stage ('NEXUS DEPLOY') {
             steps {
-                script {
-					nexusPublisher nexusInstanceId: 'Nexus', nexusRepositoryId: 'TpAchat', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/tpAchatProject-1.0.jar']], mavenCoordinate: [artifactId: 'tpAchatProject', groupId: 'com.esprit.examen', packaging: 'jar', version: '1.0']]]
-				}
+                sh 'mvn clean package deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
             }
         }
    }
