@@ -3,12 +3,13 @@ pipeline {
   
    stages{
         
-       stage('GIT')
-	    {
-			steps {
-					echo "Getting project from Git";
-			}
-		}
+       stage('GIT') {
+            steps {
+                echo "git";
+                git branch : 'nermine',
+                url: 'https://github.com/LaracodeEsprit/Projet-DevOps.git'
+            }
+        }
 		
         stage('MVN CLEAN') { 
             steps { 
@@ -22,6 +23,12 @@ pipeline {
 				sh' mvn compile'
 			}
 		}
+		
+		stage('MVN SONARQUBE') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+            }
+        }
 		
 		
    }
