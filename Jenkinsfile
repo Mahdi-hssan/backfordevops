@@ -3,13 +3,25 @@ pipeline {
   
    stages{
         
-       
+		stage('GIT') { 
+            steps { 
+               git branch: 'Mahdi', credentialsId: 'ba764ef7-06cb-459e-9507-e1179a361ce9', url: 'https://github.com/HssanMahdi/backfordevops.git'
+                
+            }
+         }
         stage('MVN CLEAN') { 
             steps { 
                sh' mvn clean install -DskipTests' 
                 
             }
-        }
+         }
+
+          stage('MVN COMPILE') { 
+            steps { 
+               sh' mvn compile' 
+                
+            }
+         }
 		/*stage('SonarQube') {
 			steps {
 				script {
