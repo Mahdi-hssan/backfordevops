@@ -1,13 +1,16 @@
 pipeline { 
-     environment { 
+   //   environment { 
 
-        registry = "amanibh/tpachat" 
+   //      registry = "amanibh/tpachat" 
 
-        registryCredential = 'dockerHub' 
+   //      registryCredential = 'dockerHub' 
 
-        dockerImage = ''
+   //      dockerImage = ''
 
-    }
+   //  }
+   environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerHub')
+  }
      agent any
   
    stages{
@@ -48,24 +51,43 @@ pipeline {
                 sh 'mvn clean package deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
             }
         }
-        
-        stage('Building our image') {
-			steps {
-				script {
-					dockerImage = docker.build registry + ":$BUILD_NUMBER"
-					}
-				}
-		}
 
-        stage('Deploy our image') {
-         steps {
-         script {
-             docker.withRegistry( '', registryCredential ) {
-             dockerImage.push()
-               }
+
+        stage('Build docker image'){
+            steps{
+             sh 'docker build -t amanibenhassine/tpachatproject:latest .'
             }
-          }
         }
+
+        stage('Dockerhub Login') {
+             steps {
+             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+         }
+        
+         stage('Push Image to Docker Hub') {         
+            steps{                            
+             sh 'docker push amanibenhassine/tpachatproject:latest'             
+            }            
+        }
+
+      //   stage('Building our image') {
+		// 	steps {
+		// 		script {
+		// 			dockerImage = docker.build registry + ":$BUILD_NUMBER"
+		// 			}
+		// 		}
+		// }
+
+      //   stage('Deploy our image') {
+      //    steps {
+      //    script {
+      //        docker.withRegistry( '', registryCredential ) {
+      //        dockerImage.push()
+      //          }
+      //       }
+      //     }
+      //   }
 
       //    stage('Builidng image') {
       //          steps{
