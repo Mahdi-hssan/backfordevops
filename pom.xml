@@ -79,32 +79,24 @@
     		<scope>test</scope>
 		</dependency>
 		<dependency>
-      <groupId>net.bytebuddy</groupId>
-      <artifactId>byte-buddy</artifactId>
-      <version>1.12.10</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.bytebuddy</groupId>
-      <artifactId>byte-buddy-agent</artifactId>
-      <version>1.12.10</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.objenesis</groupId>
-      <artifactId>objenesis</artifactId>
-      <version>3.2</version>
-      <scope>runtime</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
-<dependency>
-    <groupId>org.sonarsource.scanner.maven</groupId>
-    <artifactId>sonar-maven-plugin</artifactId>
-    <version>3.7.0.1746</version>
-</dependency>
-
-
-	</dependencies>
+      		<groupId>net.bytebuddy</groupId>
+      		<artifactId>byte-buddy</artifactId>
+      		<version>1.12.10</version>
+      		<scope>compile</scope>
+		</dependency>
+    	<dependency>
+      		<groupId>net.bytebuddy</groupId>
+      		<artifactId>byte-buddy-agent</artifactId>
+      		<version>1.12.10</version>
+      		<scope>compile</scope>
+    	</dependency>
+    	<dependency>
+      		<groupId>org.objenesis</groupId>
+      		<artifactId>objenesis</artifactId>
+      		<version>3.2</version>
+      		<scope>runtime</scope>
+    	</dependency>
+</dependencies>
 
 	<build>
 		<plugins>
@@ -119,16 +111,4 @@
             		</plugin>
 		</plugins>
 	</build>
-<distributionManagement>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>nexus-snapshots</name>
-			<url>http://localhost:8081/repository/maven-snapshots/</url>
-		</snapshotRepository>
-		<repository>
-			<id>releases</id>
-			<name>nexus-snapshots</name>
-			<url>http://localhost:8081/repository/maven-releases/</url>
-		</repository>
-	</distributionManagement>
 </project>

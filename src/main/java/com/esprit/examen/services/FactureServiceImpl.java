@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.esprit.examen.entities.DetailFacture;
 import com.esprit.examen.entities.Facture;
-import com.esprit.examen.entities.Fournisseur;
+/*import com.esprit.examen.entities.Fournisseur;
 import com.esprit.examen.entities.Operateur;
-import com.esprit.examen.entities.Produit;
+import com.esprit.examen.entities.Produit;*/
 import com.esprit.examen.repositories.DetailFactureRepository;
 import com.esprit.examen.repositories.FactureRepository;
-import com.esprit.examen.repositories.FournisseurRepository;
+/*import com.esprit.examen.repositories.FournisseurRepository;
 import com.esprit.examen.repositories.OperateurRepository;
-import com.esprit.examen.repositories.ProduitRepository;
+import com.esprit.examen.repositories.ProduitRepository;*/
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -25,17 +25,19 @@ public class FactureServiceImpl implements IFactureService {
 
 	@Autowired
 	FactureRepository factureRepository;
-	@Autowired
-	OperateurRepository operateurRepository;
+	
 	@Autowired
 	DetailFactureRepository detailFactureRepository;
+	
+	/*@Autowired
+	OperateurRepository operateurRepository;
 	@Autowired
 	FournisseurRepository fournisseurRepository;
 	@Autowired
 	ProduitRepository produitRepository;
     @Autowired
     ReglementServiceImpl reglementService;
-	
+	*/
 	@Override
 	public List<Facture> retrieveAllFactures() {
 		List<Facture> factures = (List<Facture>) factureRepository.findAll();
@@ -54,7 +56,7 @@ public class FactureServiceImpl implements IFactureService {
 	 * calculer les montants remise et le montant total d'un détail facture
 	 * ainsi que les montants d'une facture
 	 */
-	private Facture addDetailsFacture(Facture f, Set<DetailFacture> detailsFacture) {
+	/* private Facture addDetailsFacture(Facture f, Set<DetailFacture> detailsFacture) {
 		float montantFacture = 0;
 		float montantRemise = 0;
 		for (DetailFacture detail : detailsFacture) {
@@ -76,7 +78,7 @@ public class FactureServiceImpl implements IFactureService {
 		f.setMontantFacture(montantFacture);
 		f.setMontantRemise(montantRemise);
 		return f;
-	}
+	}*/
 
 	@Override
 	public void cancelFacture(Long factureId) {
@@ -97,7 +99,7 @@ public class FactureServiceImpl implements IFactureService {
 		return facture;
 	}
 
-	@Override
+	/*@Override
 	public List<Facture> getFacturesByFournisseur(Long idFournisseur) {
 		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);
 		return (List<Facture>) fournisseur.getFactures();
@@ -117,7 +119,7 @@ public class FactureServiceImpl implements IFactureService {
 		float totalRecouvrementEntreDeuxDates =reglementService.getChiffreAffaireEntreDeuxDate(startDate,endDate);
 		float pourcentage=(totalRecouvrementEntreDeuxDates/totalFacturesEntreDeuxDates)*100;
 		return pourcentage;
-	}
+	}*/
 	
 
 }
