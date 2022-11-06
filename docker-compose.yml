@@ -1,6 +1,6 @@
 version: '3'
 services:
-    database:
+  database:
     image: mysql
     container_name: mysql
     environment:
