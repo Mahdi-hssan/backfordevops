@@ -41,7 +41,7 @@ pipeline {
 		}
 		stage('clean et packaging'){
 			steps {
-				bat "mvn clean package "
+				sh 'mvn clean package'
 			}
 		}
 		stage ('NEXUS DEPLOY') {
