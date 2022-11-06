@@ -11,7 +11,13 @@ pipeline {
      agent any
   
    stages{
-        
+        stage("Composing-nexus-sonarQube") { 
+             steps { 
+                 script { 
+                    sh "docker-compose up -d  "
+                 } 
+             } 
+         }
 		stage('GIT') { 
             steps { 
                git branch: 'Mahdi', credentialsId: 'ba764ef7-06cb-459e-9507-e1179a361ce9', url: 'https://github.com/HssanMahdi/backfordevops.git'
@@ -31,7 +37,7 @@ pipeline {
                 
             }
          }
-		/*stage('SonarQube') {
+		stage('SonarQube') {
 			steps {
 				script {
 					withSonarQubeEnv('sonarQube') {
@@ -46,8 +52,8 @@ pipeline {
 					nexusPublisher nexusInstanceId: 'Nexus', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/tpAchatProject-1.0.jar']], mavenCoordinate: [artifactId: 'tpAchatProject', groupId: 'com.esprit.examen', packaging: 'jar', version: '1.0']]]
 				}
             }
-        }*/
-		stage('Building our image') {
+        }
+		*/stage('Building our image') {
 			steps {
 				script {
 					dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -74,7 +80,7 @@ pipeline {
                     sh "docker-compose up -d  "
                  } 
              } 
-         }
+         }*/
    }
 }
 
