@@ -122,6 +122,13 @@ pipeline {
    
             }
         }
+	      stage(' docker-compose') {
+            steps {
+                sh 'docker-compose -f docker-compose-app.yml up -d'
+   
+            }
+        }
+         
 //        stage('Deploy our image') { 
 
 //             steps { 
@@ -145,7 +152,7 @@ pipeline {
 
             steps { 
 
-                sh "docker rmi $registry:$BUILD_NUMBER" 
+                sh "docker rmi $registry:" 
 
             }
 
