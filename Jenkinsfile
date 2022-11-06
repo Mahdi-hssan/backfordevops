@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo "git";
                 git branch : 'nermine',
-                url: 'https://github.com/LaracodeEsprit/Projet-DevOps.git'
+                url: 'https://github.com/HssanMahdi/backfordevops.git'
             }
         }
 		
