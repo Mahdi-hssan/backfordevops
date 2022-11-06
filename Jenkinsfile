@@ -9,7 +9,7 @@ pipeline {
 
    //  }
    environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerHub')
+    DOCKERHUB_CREDENTIALS = credentials('docker_hub')
   }
      agent any
   
