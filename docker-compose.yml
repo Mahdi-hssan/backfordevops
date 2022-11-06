@@ -11,6 +11,8 @@ services:
      - 'sonarqube_data:/opt/sonarqube/data'
      - 'sonarqube_extensions:/opt/sonarqube/extensions'
      - 'sonarqube_logs:/opt/sonarqube/logs'
+    networks:
+     - projectdevops
 
   nexus:
     container_name: nexus
@@ -20,6 +22,8 @@ services:
     ports:
       - "8081:8081"
       - "8086:8086"
+    networks:
+     - projectdevops
   
 volumes:
   nexus-data:
