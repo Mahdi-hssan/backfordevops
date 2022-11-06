@@ -50,19 +50,12 @@ pipeline {
         }
 
 
-            stage('Building our image') { 
-
-            steps { 
-
-                script { 
-
-                    dockerImage = docker.build registry  
-
-                }
-
-            } 
-
+           stage('Builidng image') {
+        steps{
+            sh 'docker build -t amanibh/tpachat:tpachat .'
+           
         }
+        } 
 	     stage('Dockerhub Login') {
              steps {
              sh 'docker login -u "amanibh" -p "amani1234"'
@@ -72,7 +65,7 @@ pipeline {
 	       stage('push docker hub') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-                 sh 'docker push amanibh/tpachat'
+                 sh 'docker push amanibh/tpachat:tpachat'
    
             }
         }
