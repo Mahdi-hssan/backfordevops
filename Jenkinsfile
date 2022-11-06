@@ -53,22 +53,35 @@ pipeline {
         }
 
 
-        stage('Build docker image'){
-            steps{
-             sh 'docker build -t amanibenhassine/tpachatproject:latest .'
-            }
-        }
+        tage('Building our image') { 
 
-        stage('Dockerhub Login') {
+            steps { 
+
+                script { 
+
+                    dockerImage = docker.build registry  
+
+                }
+
+            } 
+
+        }
+	     stage('Dockerhub Login') {
              steps {
-             sh 'docker login -u "amanibenhassine" -p "amani1234"'
+             sh 'docker login -u "amanibh" -p "amani1234"'
             }
          }
-        
-         stage('Push Image to Docker Hub') {         
-            steps{                            
-             sh 'docker push amanibenhassine/tpachatproject:latest'             
-            }            
+
+	       stage('push docker hub') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+   
+            }
+        }
+        stage('Email notification') {
+            steps {
+                mail bcc: '', body: 'Image is pushed to Dockerhub and containers will be running', cc: '', from: '', replyTo: '', subject: 'Jenkins-Dockerhub Alert', to: 'amani.benhassine@esprit.tn'
+            }
         }
 
       //   stage('Building our image') {
