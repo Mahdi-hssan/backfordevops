@@ -1,4 +1,13 @@
 pipeline { 
+     environment { 
+
+        registry = "amanibh/tpachat" 
+
+        registryCredential = 'dockerHub' 
+
+        dockerImage = ''
+
+    }
      agent any
   
    stages{
@@ -39,24 +48,28 @@ pipeline {
                 sh 'mvn clean package deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
             }
         }
-         stage('Build Docker'){
-            steps{
-                sh 'docker build -t amanibh/tpachat .'
+         stage('Building our image') {
+			steps {
+				script {
+					dockerImage = docker.build registry + ":$BUILD_NUMBER"
+					}
+				}
+		}
+        stage('Deploy our image') {
+         steps {
+         script {
+             docker.withRegistry( '', registryCredential ) {
+             dockerImage.push()
+               }
             }
-        }
-        stage('Docker Login'){
-            steps{
-
-                sh 'docker login -u amanibh -p amani1234'
-            }
+          }
         }
         
-        stage('Docker Push'){
-            steps{
-
-                sh 'docker push amanibh/tpachat'
-            }
-        }
+        stage('Cleaning up') {
+			steps {
+				sh "docker rmi $registry:$BUILD_NUMBER"
+			}
+		}
         
    }
 }
