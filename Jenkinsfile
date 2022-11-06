@@ -148,18 +148,18 @@ pipeline {
 //         } 
 
         
-         post{
+     
+                          
+
+		
+    }
+       
+      post{
         always{
         
         emailext body: 'jenkins', subject: 'jenkins', to: 'cheima.sassi@esprit.tn'
         }
         
     } 
-       
-                          
-
-		
-    }
-       
-    
+         
 }  
