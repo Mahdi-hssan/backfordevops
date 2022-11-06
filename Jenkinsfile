@@ -11,25 +11,18 @@ pipeline {
      agent any
   
    stages{
-        stage("Composing-nexus-sonarQube") { 
-             steps { 
-                 script { 
-                    sh "docker-compose up -f docker-compose-nexus-sonar.yml -d"
-                 } 
-             } 
-         }
 		stage('GIT') { 
             steps { 
                git branch: 'Mahdi', credentialsId: 'ba764ef7-06cb-459e-9507-e1179a361ce9', url: 'https://github.com/HssanMahdi/backfordevops.git'
                 
             }
          }
-        stage('MVN CLEAN') { 
+        /*stage('MVN CLEAN') { 
             steps { 
                sh' mvn clean install -DskipTests' 
                 
             }
-         }
+         }*/
 
           stage('MVN COMPILE') { 
             steps { 
@@ -46,6 +39,11 @@ pipeline {
 				}
 			}
 		}
+		Stage (“clean et packaging”){
+			steps {
+				bat "mvn clean package "
+			}
+		}
 		stage ('NEXUS DEPLOY') {
             steps {
 				script {
@@ -53,7 +51,7 @@ pipeline {
 				}
             }
         }
-		/*stage('Building our image') {
+		stage('Building our image') {
 			steps {
 				script {
 					dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -80,7 +78,21 @@ pipeline {
                     sh "docker-compose up -d  "
                  } 
              } 
-         }*/
+        }
+		stage('Email notification') {
+            steps {
+                mail bcc: '', body: 'Image is pushed to Dockerhub and containers will be running', cc: '', from: '', replyTo: '', subject: 'Jenkins-Dockerhub Alert', to: 'mahdi.hssan@esprit.tn'
+            }
+        }
+		/*stage("Run containers") {
+            steps {
+                sh "docker-compose up -d"
+                sleep(time: 30, unit: "MINUTES")
+                sh 'docker compose ps'
+                sh "docker-compose down"
+                sh 'docker compose ps'
+            }
+        }*/
    }
 }
 
