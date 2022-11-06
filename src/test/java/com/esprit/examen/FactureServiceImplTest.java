@@ -27,8 +27,9 @@ import com.esprit.examen.repositories.FactureRepository;
 import com.esprit.examen.services.FactureServiceImpl;
 
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class FactureServiceImplTest {
 
 	FactureRepository factureRepo = Mockito.mock(FactureRepository.class);
