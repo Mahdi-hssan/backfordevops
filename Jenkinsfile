@@ -33,7 +33,7 @@ pipeline {
 
          //stage("Unit tests") {
          //   steps {
-         //         sh "mvn test"
+         //         sh "mvn test -DskipTests"
          //   }
         // }
 
@@ -69,7 +69,7 @@ pipeline {
          stage('pushing Image'){
                steps{
                      script{
-                  sh 'docker login -u "amanibh" -p "amani1234" docker.io'
+                  sh 'docker login -u "amanibh" -p "amani1234"'
                   sh 'docker tag tpachat:latest amanibh/tpachat:latest'
                   sh ' docker push amanibh/tpachat:latest'
          }
