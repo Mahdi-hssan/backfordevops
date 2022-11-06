@@ -111,9 +111,11 @@ pipeline {
         }
 	     stage('Dockerhub Login') {
              steps {
+	     sh 'docker tag cheumas/image  cheumas/image3'
              sh 'docker login -u "cheumas" -p "nawarty26A;"'
             }
          }
+	      
 
 	       stage('push docker hub') {
             steps {
