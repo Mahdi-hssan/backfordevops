@@ -44,18 +44,18 @@ pipeline {
 		
 		stage('Docker Build'){
             steps {
-                sh 'sudo docker build -t elouninermine/tpachat .'
+                sh 'docker build -t elouninermine/tpachat .'
             }
         }
         stage('Docker Login'){
             steps {
-                sh 'sudo docker login -u elouninermine -p admindocker'
+                sh 'docker login -u elouninermine -p admindocker'
             }
         }
         
         stage('Docker Push'){
             steps {
-				sh 'sudo docker push elouninermine/tpachat'
+				sh 'docker push elouninermine/tpachat'
             }
         }
 		
