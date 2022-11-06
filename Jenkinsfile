@@ -31,11 +31,11 @@ pipeline {
             }
          }
 
-         //stage("Unit tests") {
-         //   steps {
-         //         sh "mvn test -DskipTests"
-         //   }
-        // }
+         stage("Unit tests") {
+           steps {
+                 sh "mvn test -DskipTests"
+           }
+        }
 
          stage('MVN SONARQUBE') {
             steps {
@@ -66,14 +66,30 @@ pipeline {
       //     }
       //   }
 
-         stage('pushing Image'){
+         stage('Builidng image') {
                steps{
-                     script{
-                  sh 'docker login -u "amanibh" -p "amani1234"'
-                  sh ' docker push amanibh/tpachat'
-         }
-         }
-         }
+                     sh 'docker build -t tpachatproject . '
+                  
+               }
+               }
+        
+        stage('pushing Image'){
+            steps{
+                  script{
+               sh 'docker login -u "amanibh" -p "amani1234" docker.io'
+               sh 'docker tag tpachatproject:latest amanibh/tpachatproject:latest'
+               sh ' docker push amanibh/tpachatproject:latest'
+            }
+            }
+            }
+         // stage('pushing Image'){
+         //       steps{
+         //             script{
+         //          sh 'docker login -u "amanibh" -p "amani1234"'
+         //          sh ' docker push amanibh/tpachat'
+         // }
+         // }
+         // }
 
 
 
