@@ -39,7 +39,7 @@ pipeline {
 				}
 			}
 		}
-		stage("Unit tests") {
+		/*stage("Unit tests") {
 			steps {
 				sh 'mvn test'
 			}
@@ -48,7 +48,7 @@ pipeline {
 					junit 'target/surefire-reports/*.xml'
 				}
 			}
-		}
+		}*/
 		stage('clean et packaging'){
 			steps {
 				sh 'mvn clean package -DskipTests'
