@@ -39,6 +39,11 @@ pipeline {
 				}
 			}
 		}
+		stage("Unit tests") {
+			steps {
+				sh "mvn test"
+			}
+		}
 		stage('clean et packaging'){
 			steps {
 				sh 'mvn clean package -DskipTests'
