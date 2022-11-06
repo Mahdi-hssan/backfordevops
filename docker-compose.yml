@@ -1,0 +1,63 @@
+version: '3.7'
+
+# Define services
+services:
+  # App backend service
+  app-server:
+    container_name: backc
+    image: cheumas/back
+    # Configuration for building the docker image for the backend service
+    build:
+      context: spring # Use an image built from the specified dockerfile in the `spring` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8089" # Forward the exposed port 8089 on the container to port 8089 on the host machine
+    restart: always
+    depends_on:
+      - db # This service depends on mysql. Start that first.
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/tpachato?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: cheima
+      SPRING_DATASOURCE_PASSWORD: cheima
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+      - frontend
+
+
+  # Frontend Service
+
+  app-client:
+    container_name: frontc
+    image: cheumas/front
+    build:
+      context: angular # Use an image built from the specified dockerfile in the `angular` directory.
+      dockerfile: Dockerfile
+      args:
+        API_BASE_URL: http://127.0.0.1:8080/
+    ports:
+      - "8081:80" # Map the exposed port 80 on the container to port 8081 on the host machine
+    restart: always
+    depends_on:
+      - app-server
+    networks:
+      - frontend
+
+  # Database Service (Mysql)
+  db:
+    container_name: dbc
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: tpachato
+      MYSQL_USER: cheima
+      MYSQL_PASSWORD: cheima
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - backend
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+  frontend:
