@@ -30,7 +30,7 @@ pipeline {
                 
             }
          }
-		stage('SonarQube') {
+		/*stage('SonarQube') {
 			steps {
 				script {
 					withSonarQubeEnv('sonarQube') {
@@ -38,10 +38,10 @@ pipeline {
 					}
 				}
 			}
-		}
+		}*/
 		stage("Unit tests") {
 			steps {
-				sh "mvn clean install test"
+				sh "mvn install test"
 			}
 			post {
 				always {
