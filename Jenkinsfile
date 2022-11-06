@@ -109,24 +109,36 @@ pipeline {
             } 
 
         }
-
-       stage('Deploy our image') { 
-
-            steps { 
-
-                script { 
-
-                    docker.withRegistry( '', registryCredential ) { 
-
-                        dockerImage.push() 
-
-                    }
-
-                } 
-
+	     stage('Dockerhub Login') {
+             steps {
+             sh 'docker login -u "cheumas" -p "nawarty26A;"'
             }
+         }
 
-        } 
+	       stage('push docker hub') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+               //  sh 'docker push cheumas/test'
+   
+            }
+        }
+//        stage('Deploy our image') { 
+
+//             steps { 
+
+//                 script { 
+
+//                     docker.withRegistry( '', registryCredential ) { 
+
+//                         dockerImage.push() 
+
+//                     }
+
+//                 } 
+
+//             }
+
+//         } 
 
         
           stage('Cleanin up') { 
