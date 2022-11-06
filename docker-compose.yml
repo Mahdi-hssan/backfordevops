@@ -1,0 +1,27 @@
+version: '3'
+services:
+  database:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: tpachato   
+    ports:
+      - 3306:3306
+    networks:
+     - projectdevops
+     
+  spring-boot:
+    image: mahdihssan/tpachat
+    container_name: springcontainer
+    ports:
+      - 8082:8082
+    depends_on:
+      - database
+    networks:
+      - projectdevops 
+    restart: on-failure  
+
+networks:
+  projectdevops:
+     
