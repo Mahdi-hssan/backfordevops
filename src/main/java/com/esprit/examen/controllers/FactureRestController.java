@@ -56,20 +56,20 @@ public class FactureRestController {
     }
 
     // http://localhost:8089/SpringMVC/facture/getFactureByFournisseur/{fournisseur-id}
-    @GetMapping("/getFactureByFournisseur/{fournisseur-id}")
+    /*@GetMapping("/getFactureByFournisseur/{fournisseur-id}")
     @ResponseBody
     public List<Facture> getFactureByFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) {
         return factureService.getFacturesByFournisseur(fournisseurId);
-    }
+    }*/
 
     // http://localhost:8089/SpringMVC/facture/assignOperateurToFacture/1/1
-    @PutMapping(value = "/assignOperateurToFacture/{idOperateur}/{idFacture}")
+    /*@PutMapping(value = "/assignOperateurToFacture/{idOperateur}/{idFacture}")
     public void assignOperateurToFacture(@PathVariable("idOperateur") Long idOperateur, @PathVariable("idFacture") Long idFacture) {
         factureService.assignOperateurToFacture(idOperateur, idFacture);
-    }
+    }*/
 
     // http://localhost:8089/SpringMVC/facture/pourcentageRecouvrement/{startDate}/{endDate}
-    @GetMapping(value = "/pourcentageRecouvrement/{startDate}/{endDate}")
+    /*@GetMapping(value = "/pourcentageRecouvrement/{startDate}/{endDate}")
     public float pourcentageRecouvrement(
             @PathVariable(name = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
             @PathVariable(name = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
@@ -78,6 +78,6 @@ public class FactureRestController {
         } catch (Exception e) {
             return 0;
         }
-    }
+    }*/
 
 }
