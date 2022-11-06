@@ -41,7 +41,7 @@ pipeline {
 		}
 		stage('clean et packaging'){
 			steps {
-				sh 'mvn clean package'
+				sh 'mvn clean package -DskipTests'
 			}
 		}
 		stage ('NEXUS DEPLOY') {
