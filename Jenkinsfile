@@ -1,7 +1,7 @@
 pipeline { 
      environment { 
 
-        registry = "amanibh/tpachat" 
+        registry = "amanibh/tp_achat" 
 
         registryCredential = 'dockerHub' 
 
