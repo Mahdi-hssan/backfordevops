@@ -1,4 +1,5 @@
 pipeline { 
+     
      agent any
   
    stages{
@@ -57,6 +58,8 @@ pipeline {
                 sh 'docker push amanibh/tpachat'
             }
         }
+        
+       
         
    }
 }
