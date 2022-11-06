@@ -41,7 +41,7 @@ pipeline {
 		}*/
 		stage("Unit tests") {
 			steps {
-				sh "mvn test"
+				sh " mysql -h 127.0.0.1 -P 3306 -u root -p tpachato & mvn test"
 			}
 			post {
 				always {
