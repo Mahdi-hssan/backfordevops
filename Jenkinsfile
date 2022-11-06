@@ -42,5 +42,22 @@ pipeline {
             }
         }
 		
+		stage('Docker Build'){
+            steps {
+                sh 'docker build -t elouninermine/tpachat .'
+            }
+        }
+        stage('Docker Login'){
+            steps {
+                sh 'docker login -u elouninermine -p admindocker'
+            }
+        }
+        
+        stage('Docker Push'){
+            steps {
+				sh 'docker push elouninermine/tpachat'
+            }
+        }
+		
    }
 }
