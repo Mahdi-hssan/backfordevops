@@ -29,15 +29,9 @@ pipeline {
             }
         }
 		
-		stage('PACKAGING DU LIVRABLE') { 
-            steps { 
-               sh' mvn clean package -DskipTests' 
-            }
-        }
-		
-		stage('NEXUS DEPLOY ARTEFACT'){
+		stage('NEXUS DEPLOY'){
             steps {
-                sh 'mvn deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://192.168.1.140:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
+                sh 'mvn clean package deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://192.168.1.140:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
             }
         }
 		
@@ -46,6 +40,7 @@ pipeline {
                 sh 'docker build -t elouninermine/tpachat .'
             }
         }
+		
         stage('DOCKER LOGIN'){
             steps {
                 sh 'docker login -u elouninermine -p admindocker'
@@ -58,6 +53,5 @@ pipeline {
             }
         }
 		
-	
    }
 }
