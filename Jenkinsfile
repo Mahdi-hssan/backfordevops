@@ -39,7 +39,7 @@ pipeline {
 					}
 				}
 			}
-		}
+		}*/
 		stage ('NEXUS DEPLOY') {
             steps {
 				script {
