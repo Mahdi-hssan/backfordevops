@@ -70,7 +70,7 @@ pipeline {
                steps{
                      script{
                   sh 'docker login -u "amanibh" -p "amani1234"'
-                  sh ' docker push amanibh/tpachat:latest'
+                  sh ' docker push amanibh/tpachat'
          }
          }
          }
