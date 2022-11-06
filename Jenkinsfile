@@ -122,12 +122,12 @@ pipeline {
    
             }
         }
-	      stage(' docker-compose') {
-            steps {
-                sh 'docker-compose -f docker-compose-app.yml up -d'
+// 	      stage(' docker-compose') {
+//             steps {
+//                 sh 'docker-compose -f docker-compose-app.yml up -d'
    
-            }
-        }
+//             }
+//         }
          
 //        stage('Deploy our image') { 
 
@@ -148,15 +148,13 @@ pipeline {
 //         } 
 
         
-          stage('Cleanin up') { 
-
-            steps { 
-
-                sh "docker rmi $registry:" 
-
-            }
-
-        } 
+         post{
+        always{
+        
+        emailext body: 'jenkins', subject: 'jenkins', to: 'cheima.sassi@esprit.tn'
+        }
+        
+    } 
        
                           
 
