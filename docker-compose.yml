@@ -15,7 +15,7 @@ services:
      - projectdevops
 
   nexus:
-    container_name: nexus
+    container_name: nexuspipeline
     image: sonatype/nexus3
     volumes:
       - "nexus-data:/nexus-data"
