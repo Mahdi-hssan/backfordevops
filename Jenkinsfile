@@ -120,7 +120,7 @@ pipeline {
 	       stage('push docker hub') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-                 sh 'docker push cheumas/test'
+                // sh 'docker push cheumas/test'
    
             }
         }
