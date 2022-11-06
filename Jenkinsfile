@@ -14,7 +14,7 @@ pipeline {
         stage("Composing-nexus-sonarQube") { 
              steps { 
                  script { 
-                    sh "docker-compose up -d  "
+                    sh "docker-compose up -f docker-compose-nexus-sonar.yml -d"
                  } 
              } 
          }
@@ -53,7 +53,7 @@ pipeline {
 				}
             }
         }
-		*/stage('Building our image') {
+		/*stage('Building our image') {
 			steps {
 				script {
 					dockerImage = docker.build registry + ":$BUILD_NUMBER"
