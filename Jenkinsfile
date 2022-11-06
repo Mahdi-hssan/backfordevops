@@ -22,11 +22,11 @@ pipeline {
             }
          }
          
-        /* stage('JUNIT TESTS'){
+        stage('JUNIT TESTS'){
              steps{
                 sh 'mvn test'
              }
-         }*/
+         }
 	
 	    stage('MVN SONARQUBE') {
             steps {
@@ -40,11 +40,11 @@ pipeline {
 	    	}
     	}
 		
-    	/*stage ('NEXUS DEPLOY') {
+    	stage ('NEXUS DEPLOY') {
     	    steps {
                 sh 'mvn deploy -DskipTests'
     	    }
-        }*/
+        }
 		
 	    stage('DOCKER IMAGE BUILD') {
 		    steps {
