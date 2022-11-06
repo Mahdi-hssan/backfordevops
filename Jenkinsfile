@@ -74,7 +74,7 @@ pipeline {
 		}
 		stage('Email notification') {
             steps {
-                mail bcc: '', body: 'Image is pushed to Dockerhub and containers will be running', cc: '', from: '', replyTo: '', subject: 'Jenkins-Dockerhub Alert', to: 'mahdi.hssan@esprit.tn'
+                mail bcc: '', body: 'Image is pushed to Dockerhub', cc: '', from: '', replyTo: '', subject: 'Jenkins-Dockerhub Alert', to: 'mahdi.hssan@esprit.tn'
             }
         }
 		stage("Docker-Compose") { 
