@@ -1,16 +1,13 @@
 pipeline { 
-   //   environment { 
+    environment { 
 
-   //      registry = "amanibh/tpachat" 
+        registry = "amanibh/tpachat" 
 
-   //      registryCredential = 'dockerHub' 
+        registryCredential = 'dockerHub' 
 
-   //      dockerImage = ''
-
-   //  }
-   environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker_hub')
-  }
+        dockerImage = '' 
+	   DOCKERHUB_CREDENTIALS = credentials('dockerHub')
+    }
      agent any
   
    stages{
@@ -53,7 +50,7 @@ pipeline {
         }
 
 
-        stage('Building our image') { 
+            stage('Building our image') { 
 
             steps { 
 
@@ -75,59 +72,11 @@ pipeline {
 	       stage('push docker hub') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+                 sh 'docker push amanibh/tpachat'
    
             }
         }
-        stage('Email notification') {
-            steps {
-                mail bcc: '', body: 'Image is pushed to Dockerhub and containers will be running', cc: '', from: '', replyTo: '', subject: 'Jenkins-Dockerhub Alert', to: 'amani.benhassine@esprit.tn'
-            }
-        }
-
-      //   stage('Building our image') {
-		// 	steps {
-		// 		script {
-		// 			dockerImage = docker.build registry + ":$BUILD_NUMBER"
-		// 			}
-		// 		}
-		// }
-
-      //   stage('Deploy our image') {
-      //    steps {
-      //    script {
-      //        docker.withRegistry( '', registryCredential ) {
-      //        dockerImage.push()
-      //          }
-      //       }
-      //     }
-      //   }
-
-      //    stage('Builidng image') {
-      //          steps{
-      //                sh 'docker build -t tpachatproject . '
-                  
-      //          }
-      //          }
-        
-      //   stage('pushing Image'){
-      //       steps{
-      //             script{
-      //          sh 'docker login -u "amanibh" -p "amani1234" docker.io'
-      //          sh 'docker tag tpachatproject:latest amanibh/tpachatproject:latest'
-      //          sh ' docker push amanibh/tpachatproject:latest'
-      //       }
-      //       }
-      //       }
-         // stage('pushing Image'){
-         //       steps{
-         //             script{
-         //          sh 'docker login -u "amanibh" -p "amani1234"'
-         //          sh ' docker push amanibh/tpachat'
-         // }
-         // }
-         // }
-
-
+       
 
        stage('Cleaning up') {
 			steps {
