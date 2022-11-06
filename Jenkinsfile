@@ -26,7 +26,7 @@ pipeline {
 
           stage('MVN COMPILE') { 
             steps { 
-               sh' mysql -h localhost -P 3306 -u root -p tpachato & mvn compile' 
+               sh' mvn compile' 
                 
             }
          }
@@ -41,7 +41,7 @@ pipeline {
 		}*/
 		stage("Unit tests") {
 			steps {
-				sh "  mvn test"
+				sh 'mvn test'
 			}
 			post {
 				always {
