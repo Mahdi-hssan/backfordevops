@@ -7,6 +7,7 @@ pipeline {
             steps {
                 echo "git";
                 git branch : 'nermine',
+				credentialsId:'39868df3-95ce-4996-9918-b3a1ebef790c',
                 url: 'https://github.com/HssanMahdi/backfordevops.git'
             }
         }
