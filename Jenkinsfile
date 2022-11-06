@@ -39,7 +39,7 @@ pipeline {
 				}
 			}
 		}
-		Stage (“clean et packaging”){
+		stage (“clean et packaging”){
 			steps {
 				bat "mvn clean package "
 			}
