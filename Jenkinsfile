@@ -41,7 +41,7 @@ pipeline {
 		}*/
 		stage("Unit tests") {
 			steps {
-				sh "mvn install test"
+				sh "mvn test"
 			}
 			post {
 				always {
