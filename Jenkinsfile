@@ -31,7 +31,7 @@ pipeline {
                 
             }
          }
-		/*stage('SonarQube') {
+		stage('SonarQube') {
 			steps {
 				script {
 					withSonarQubeEnv('sonarQube') {
@@ -39,7 +39,7 @@ pipeline {
 					}
 				}
 			}
-		}*/
+		}
 		stage ('NEXUS DEPLOY') {
             steps {
 				script {
