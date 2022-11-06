@@ -53,7 +53,7 @@ pipeline {
         }
 
 
-        tage('Building our image') { 
+        stage('Building our image') { 
 
             steps { 
 
