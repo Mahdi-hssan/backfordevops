@@ -22,11 +22,11 @@ pipeline {
             }
          }
          
-        stage('JUNIT TESTS'){
+        /*stage('JUNIT TESTS'){
              steps{
                 sh 'mvn test'
              }
-         }
+         }*/
 	
 	    stage('MVN SONARQUBE') {
             steps {
