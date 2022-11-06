@@ -22,11 +22,11 @@ pipeline {
             }
          }
 
-         stage("Unit tests") {
-            steps {
-                  sh "mvn test"
-            }
-         }
+         //stage("Unit tests") {
+         //   steps {
+         //         sh "mvn test"
+         //   }
+        // }
 
          stage('MVN SONARQUBE') {
             steps {
@@ -39,5 +39,24 @@ pipeline {
                 sh 'mvn clean package deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
             }
         }
+         stage('Build Docker'){
+            steps{
+                sh 'docker build -t amanibh/tpachat .'
+            }
+        }
+        stage('Docker Login'){
+            steps{
+
+                sh 'docker login -u amanibh -p amani1234'
+            }
+        }
+        
+        stage('Docker Push'){
+            steps{
+
+                sh 'docker push amanibh/tpachat'
+            }
+        }
+        
    }
 }
