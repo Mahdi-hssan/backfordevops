@@ -10,7 +10,7 @@ services:
     ports:
       - "8089:8089"
     environment: # Pass environment variables to the service
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/tpachato?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/tpachato?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
       - MYSQL_HOST=tp-achat-mysql
       - MYSQL_USERNAME=cheima
       - MYSQL_PASSWORD=cheima
