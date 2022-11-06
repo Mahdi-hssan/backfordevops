@@ -40,11 +40,11 @@ pipeline {
 	    	}
     	}
 		
-    	/*stage ('NEXUS DEPLOY') {
+    	stage ('NEXUS DEPLOY') {
     	    steps {
                 sh 'mvn deploy -DskipTests'
     	    }
-        }*/
+        }
 		
 	    stage('DOCKER IMAGE BUILD') {
 		    steps {
