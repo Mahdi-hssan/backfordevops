@@ -15,16 +15,23 @@ pipeline {
                 url: 'https://github.com/HssanMahdi/backfordevops.git'
             }
         }
+        
+        stage('MVN CLEAN') { 
+            steps { 
+               sh' mvn clean install -DskipTests' 
+                
+            }
+         }
 
           stage('MVN COMPILE') { 
             steps { 
-               sh 'mvn compile & mysql -h localhost -P 3306 -u root -p tpachato -DskipTests'
+               sh 'mvn compile'
             }
          }
          
-        stage('JUNIT TESTS'){
+        stage('JUNIT/MOCKITO TESTS'){
              steps{
-                sh 'mvn test -DskipTests'
+                sh 'mysql -h localhost -P 3306 -u root -p tpachato & mvn test -DskipTests'
              }
          }
 	
