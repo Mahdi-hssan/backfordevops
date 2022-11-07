@@ -65,11 +65,11 @@ pipeline {
     			sh 'docker login -u elouninermine -p admindocker'
     		}
     	}
+    	
         stage('DEPLOY DOCKER IMAGE') {
 		    steps{
 			    sh 'docker push $dockerImage'
 			    }
-		    }
 	    }
 	    
 	    stage('NOTIFICATION EMAIL') {
