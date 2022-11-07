@@ -76,13 +76,13 @@ pipeline {
                 mail bcc: '', body: 'Image is pushed to Dockerhub', cc: '', from: '', replyTo: '', subject: 'Jenkins-Dockerhub Alert', to: 'amani.benhassine@esprit.tn'
             }
         }
-		// stage("Docker-Compose") { 
-        //      steps { 
-        //          script { 
-        //             sh "docker-compose up -d  "
-        //          } 
-        //      } 
-        // }
+		 stage("Docker-Compose") { 
+              steps { 
+                  script { 
+                     sh "docker-compose up -d  "
+                  } 
+              } 
+         }
         
         
          
