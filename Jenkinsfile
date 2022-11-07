@@ -55,24 +55,19 @@ pipeline {
 		
 	    stage('DOCKER IMAGE BUILD') {
 		    steps {
-			    script {
-				    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-			    }
+ 				sh 'docker build -t elouninermine/tpachat .'
 		    }
         }
     	
     	stage('DOCKER LOGIN'){
     		steps{
-    			sh 'docker login -u "elouninermine" -p "admindocker"'
+    			sh 'docker login -u elouninermine -p admindocker'
     		}
     	}
+    	
         stage('DEPLOY DOCKER IMAGE') {
 		    steps{
-			    script{
-				    docker.withRegistry( '', registryCredential ){
-					    dockerImage.push();
-				    }
-			    }
+			   sh 'docker push elouninermine/tpachat'
 		    }
 	    }
 	    
