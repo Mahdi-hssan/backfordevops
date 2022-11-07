@@ -18,15 +18,15 @@ pipeline {
 
           stage('MVN COMPILE') { 
             steps { 
-               sh 'mysql -h localhost -P 3306 -u root -p tpachato & mvn clean install -DskipTests'
+               sh 'mvn compile & mysql -h localhost -P 3306 -u root -p tpachato -DskipTests'
             }
          }
          
-        /*stage('JUNIT TESTS'){
+        stage('JUNIT TESTS'){
              steps{
-                sh 'mvn test'
+                sh 'mvn test -DskipTests'
              }
-         }*/
+         }
 	
 	    stage('MVN SONARQUBE') {
             steps {
@@ -34,15 +34,15 @@ pipeline {
             }
         }
 	
-	    /*stage('PREPARATION DU LIVRABLE') {
+	    stage('PREPARATION DU LIVRABLE') {
 		    steps {
 			    sh 'mvn clean package -DskipTests'
 	    	}
-    	}*/
+    	}
 		
     	stage ('NEXUS DEPLOY') {
     	    steps {
-                sh 'mvn clean package deployDversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://192.168.1.11:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
+                sh 'mvn deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://192.168.1.11:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
     	    }
         }
 		
