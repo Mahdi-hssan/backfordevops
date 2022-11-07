@@ -1,46 +1,42 @@
-version: '3.7'
-
-# Define services
+version: '3.1'
 services:
-  # App backend service
-  app-server:
-    container_name: image3
-    image: cheumas/image3
-    # Configuration for building the docker image for the backend service
-    build:
-      context: '' # Use an image built from the specified dockerfile in the `spring` directory.
-      dockerfile: Dockerfile
+
+  tp-achat:
+    container_name: achat
+    image: "backend_achat"
+    build: .
+    networks:
+      - test_default   
     ports:
-      - "8089:8089" # Forward the exposed port 8089 on the container to port 8089 on the host machine
-    restart: always
-    depends_on:
-      - db # This service depends on mysql. Start that first.
+      - "8089:8089"
     environment: # Pass environment variables to the service
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/tpachato?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: cheima
-      SPRING_DATASOURCE_PASSWORD: cheima
-    networks: # Networks to join (Services on the same network can communicate with each other using their name)
-      - backend
+      - MYSQL_HOST=tp-achat-mysql
+      - MYSQL_USERNAME=cheima
+      - MYSQL_PASSWORD=cheima
+      - MYSQL_DATABASE=tpachato
+    
+    depends_on:
+      - tp-achat-mysql
 
-
-
-
-  # Database Service (Mysql)
-  db:
-    container_name: dbc
-    image: mysql:8.0
-    ports:
-      - "3306:3306"
-    restart: always
+tp-achat-mysql:
+    container_name: achat-mysql_2
+    image: "mysql:5.6"
     environment:
-      MYSQL_DATABASE: tpachato
-      MYSQL_USER: cheima
-      MYSQL_PASSWORD: cheima
-      MYSQL_ROOT_PASSWORD: root
+      - MYSQL_ROOT_PASSWORD=cheima
+      - MYSQL_DATABASE=achat
+      - MYSQL_USER=cheima
+      - MYSQL_PASSWORD=cheima
+    ports:
+      - 3307:3306
+    volumes:
+      - tp-achat-mysql-vol:/my/own/datadir       
     networks:
-      - backend
+      - test_default   
 
-# Networks to be created to facilitate communication between containers
+   
+
+volumes:
+  tp-achat-mysql-vol:
 networks:
-  backend:
-  frontend:
+  test_default:
