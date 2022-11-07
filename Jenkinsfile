@@ -60,7 +60,12 @@ pipeline {
 			    }
 		    }
         }
-    
+    	
+    	stage('DOCKER LOGIN'){
+    		steps{
+    			sh 'docker login -u elouninermine -p admindocker'
+    		}
+    	}
         stage('DEPLOY DOCKER IMAGE') {
 		    steps{
 			    script{
