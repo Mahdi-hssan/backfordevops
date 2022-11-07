@@ -82,18 +82,19 @@ pipeline {
             }
         }
 		
-		/*stage('CLEAN DOCKER IMAGE') {
+		stage('CLEAN DOCKER IMAGE') {
 			steps {
 				sh "docker rmi $registry:$BUILD_NUMBER"
 			}
-		}*/
+		}
+		/*
 		stage("Docker Compose") { 
              steps { 
                  script { 
                     sh "docker-compose up -d  "
                  } 
              }
-		}
+		}*/
 
     }
 }
