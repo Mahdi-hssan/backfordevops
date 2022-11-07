@@ -1,12 +1,12 @@
 pipeline { 
-    environment { 
+   environment { 
 
         registry = "amanibh/tpachat" 
 
         registryCredential = 'dockerHub' 
 
-        dockerImage = '' 
-	   DOCKERHUB_CREDENTIALS = credentials('dockerHub')
+        dockerImage = ''
+
     }
      agent any
   
@@ -50,34 +50,42 @@ pipeline {
         }
 
 
-           stage('Builidng image') {
-        steps{
-            sh 'docker build -t amanibh/tpachat:tpachat .'
-           
-        }
-        } 
-	     stage('Dockerhub Login') {
-             steps {
-             sh 'docker login -u "amanibh" -p "amani1234"'
-            }
-         }
-
-	       stage('push docker hub') {
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-                 sh 'docker push amanibh/tpachat:tpachat'
-   
-            }
-        }
-       
-
-       stage('Cleaning up') {
+          stage('Building our image') {
 			steps {
-				sh "docker rmi $registry:$BUILD_NUMBER"
-			}
+				script {
+					dockerImage = docker.build registry + ":$BUILD_NUMBER"
+					}
+				}
 		}
+		stage('Deploy our image') {
+         steps {
+         script {
+             docker.withRegistry( '', registryCredential ) {
+             dockerImage.push()
+               }
+            }
+          }
+        }
+		// stage('Cleaning up') {
+		// 	steps {
+		// 		sh "docker rmi $registry:$BUILD_NUMBER"
+		// 	}
+		// }
+		stage('Email notification') {
+            steps {
+                mail bcc: '', body: 'Image is pushed to Dockerhub', cc: '', from: '', replyTo: '', subject: 'Jenkins-Dockerhub Alert', to: 'amani.benhassine@esprit.tn'
+            }
+        }
+		stage("Docker-Compose") { 
+             steps { 
+                 script { 
+                    sh "docker-compose up -d  "
+                 } 
+             } 
+        }
         
-       
+        
+         
         
    }
 }
