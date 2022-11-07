@@ -3,7 +3,6 @@ pipeline {
     environment{
 	    registry= "elouninermine/tpachat"
 	    dockerImage=''
-	    registryCredential= 'dockerHub'
     }
     agent any
 
@@ -68,10 +67,7 @@ pipeline {
     	}
         stage('DEPLOY DOCKER IMAGE') {
 		    steps{
-			    script{
-				    docker.withRegistry( '', registryCredential ){
-					    dockerImage.push();
-				    }
+			    sh 'docker push $dockerImage'
 			    }
 		    }
 	    }
