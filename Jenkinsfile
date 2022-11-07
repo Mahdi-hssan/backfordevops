@@ -36,7 +36,7 @@ pipeline {
 	
 	    stage('PREPARATION DU LIVRABLE') {
 		    steps {
-			    sh 'mvn package -DskipTests'
+			    sh 'mvn clean package -DskipTests'
 	    	}
     	}
 		
