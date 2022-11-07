@@ -63,6 +63,12 @@ pipeline {
 			    }
 		    }
 	    }
+	    
+	    stage('NOTIFICATION EMAIL') {
+            steps {
+                mail bcc: '', body: 'Image is pushed to Nermine DockerHub', cc: '', from: '', replyTo: '', subject: 'Jenkins-Dockerhub Alert', to: 'elouni.nermine@esprit.tn'
+            }
+        }
 		
 		stage('CLEAN DOCKER IMAGE') {
 			steps {
