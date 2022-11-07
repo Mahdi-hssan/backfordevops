@@ -1,37 +1,54 @@
-version: "3.3"
-
+version: '3'
 services:
-  mysqldb:
-    image: mysql:5.7
-    restart: unless-stopped
-    env_file: ./.env
+  database:
+    image: mysql
+    container_name: mysql
     environment:
-      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: tpachato   
     ports:
-      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
-    volumes:
-      - db:/var/lib/mysql
-  app:
+      - 3306:3306
+    networks:
+     - projectdevops
+     
+  spring-boot:
+    image: amanibh/tpachat
+    container_name: springcontainer
+    ports:
+      - 8082:8082
     depends_on:
-      - mysqldb
-    image: test/cloudonomicsspring-app:latest
-    container_name: springboot-app
+      - database
+    networks:
+      - projectdevops 
     restart: on-failure
-    env_file: ./.env
+  sonarqube:
+    container_name: sonarqube
+    image: "sonarqube:8.9.7-community"
     ports:
-      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
-    environment:
-      SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:mysql://mysqldb:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?useSSL=false",
-        "spring.datasource.username" : "$MYSQLDB_USER",
-        "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
-        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-        "spring.jpa.hibernate.ddl-auto" : "update"
-      }'
+      - "9001:9001"
     volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
+     - 'sonarqube_data:/opt/sonarqube/data'
+     - 'sonarqube_extensions:/opt/sonarqube/extensions'
+     - 'sonarqube_logs:/opt/sonarqube/logs'
+    networks:
+     - projectdevops
 
+  nexus:
+    container_name: nexuspipeline
+    image: sonatype/nexus3
+    volumes:
+      - "nexus-data:/nexus-data"
+    ports:
+      - "8086:8086"
+    networks:
+     - projectdevops
+  
 volumes:
-  db:
+  nexus-data:
+  sonarqube_logs:
+  sonarqube_extensions:
+  sonarqube_data:
+
+networks:
+  projectdevops:
+     
