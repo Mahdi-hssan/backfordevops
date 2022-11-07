@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import com.esprit.examen.entities.Reglement;
+import com.esprit.examen.entities.ReglementRequest;
 import com.esprit.examen.services.IReglementService;
 
 import io.swagger.annotations.Api;
@@ -26,8 +27,13 @@ public class ReglementRestController {
     // http://localhost:8089/SpringMVC/reglement/add-reglement
     @PostMapping("/add-reglement")
     @ResponseBody
-    public Reglement addReglement(@RequestBody Reglement r) {
-        Reglement reglement = reglementService.addReglement(r);
+    public Reglement addReglement(@RequestBody ReglementRequest r) {
+    	Reglement reg=new Reglement();
+    	reg.setDateReglement(r.getDateReglement());
+    	reg.setMontantPaye(r.getMontantPaye());
+    	reg.setMontantRestant(r.getMontantRestant());
+    	reg.setPayee(r.getPayee());
+        Reglement reglement = reglementService.addReglement(reg);
         return reglement;
     }
     @GetMapping("/retrieve-all-reglements")

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.esprit.examen.entities.Operateur;
+import com.esprit.examen.entities.OperateurRequest;
 import com.esprit.examen.services.IOperateurService;
 
 import io.swagger.annotations.Api;
@@ -22,8 +23,7 @@ public class OperateurController {
 	@GetMapping("/retrieve-all-operateurs")
 	@ResponseBody
 	public List<Operateur> getOperateurs() {
-		List<Operateur> list = operateurService.retrieveAllOperateurs();
-		return list;
+		return operateurService.retrieveAllOperateurs();
 	}
 
 	// http://localhost:8089/SpringMVC/operateur/retrieve-operateur/8
@@ -36,8 +36,12 @@ public class OperateurController {
 	// http://localhost:8089/SpringMVC/operateur/add-operateur
 	@PostMapping("/add-operateur")
 	@ResponseBody
-	public Operateur addOperateur(@RequestBody Operateur op) {
-		Operateur operateur = operateurService.addOperateur(op);
+	public Operateur addOperateur(@RequestBody OperateurRequest op) {
+		Operateur p=new Operateur();
+		p.setNom(op.getNom());
+		p.setPassword(op.getPassword());
+		p.setPrenom(op.getPrenom());
+		Operateur operateur = operateurService.addOperateur(p);
 		return operateur;
 	}
 
@@ -51,8 +55,13 @@ public class OperateurController {
 	// http://localhost:8089/SpringMVC/operateur/modify-operateur
 	@PutMapping("/modify-operateur")
 	@ResponseBody
-	public Operateur modifyOperateur(@RequestBody Operateur operateur) {
-		return operateurService.updateOperateur(operateur);
+	public Operateur modifyOperateur(@RequestBody OperateurRequest op) {
+		Operateur p=new Operateur();
+		p.setNom(op.getNom());
+		p.setPassword(op.getPassword());
+		p.setPrenom(op.getPrenom());
+		p.setIdOperateur(op.getIdOperateur());
+		return operateurService.updateOperateur(p);
 	}
 
 	
