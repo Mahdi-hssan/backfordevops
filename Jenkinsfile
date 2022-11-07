@@ -34,15 +34,15 @@ pipeline {
             }
         }
 	
-	    stage('PREPARATION DU LIVRABLE') {
+	    /*stage('PREPARATION DU LIVRABLE') {
 		    steps {
 			    sh 'mvn clean package -DskipTests'
 	    	}
-    	}
+    	}*/
 		
     	stage ('NEXUS DEPLOY') {
     	    steps {
-                sh 'mvn deploy'
+                sh 'mvn clean package deployDversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://192.168.1.11:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests'
     	    }
         }
 		
