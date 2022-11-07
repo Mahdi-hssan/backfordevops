@@ -43,12 +43,7 @@ pipeline {
 			steps {
 				sh 'mvn test'
 			}
-			post {
-				always {
-					junit 'target/surefire-reports/*.xml'
-				}
-			}
-		}*/
+		}
 		stage('clean et packaging'){
 			steps {
 				sh 'mvn clean package -DskipTests'
@@ -93,16 +88,7 @@ pipeline {
                     sh "docker-compose up -d  "
                  } 
              } 
-        }
-		/*stage("Run containers") {
-            steps {
-                sh "docker-compose up -d"
-                sleep(time: 30, unit: "MINUTES")
-                sh 'docker compose ps'
-                sh "docker-compose down"
-                sh 'docker compose ps'
-            }
-        }*/
+        }*/
    }
 }
 
