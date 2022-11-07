@@ -12,7 +12,7 @@ public interface IOperateurService {
 
 	void deleteOperateur(Long id);
 
-	Operateur updateOperateur(Operateur o);
+	Operateur updateOperateurTest(Operateur o);
 
 	Operateur retrieveOperateur(Long id);
 

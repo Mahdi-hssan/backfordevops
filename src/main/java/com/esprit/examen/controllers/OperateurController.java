@@ -19,21 +19,21 @@ public class OperateurController {
 	@Autowired
 	IOperateurService operateurService;
 	
-	// http://localhost:8089/SpringMVC/operateur/retrieve-all-operateurs
+	
 	@GetMapping("/retrieve-all-operateurs")
 	@ResponseBody
 	public List<Operateur> getOperateurs() {
 		return operateurService.retrieveAllOperateurs();
 	}
 
-	// http://localhost:8089/SpringMVC/operateur/retrieve-operateur/8
+	
 	@GetMapping("/retrieve-operateur/{operateur-id}")
 	@ResponseBody
 	public Operateur retrieveOperateur(@PathVariable("operateur-id") Long operateurId) {
 		return operateurService.retrieveOperateur(operateurId);
 	}
 
-	// http://localhost:8089/SpringMVC/operateur/add-operateur
+	
 	@PostMapping("/add-operateur")
 	@ResponseBody
 	public Operateur addOperateur(@RequestBody OperateurRequest op) {
@@ -41,18 +41,17 @@ public class OperateurController {
 		p.setNom(op.getNom());
 		p.setPassword(op.getPassword());
 		p.setPrenom(op.getPrenom());
-		Operateur operateur = operateurService.addOperateur(p);
-		return operateur;
+		return operateurService.addOperateur(p);
 	}
 
-	// http://localhost:8089/SpringMVC/operateur/remove-operateur/{operateur-id}
+	
 	@DeleteMapping("/remove-operateur/{operateur-id}")
 	@ResponseBody
 	public void removeOperateur(@PathVariable("operateur-id") Long operateurId) {
 		operateurService.deleteOperateur(operateurId);
 	}
 
-	// http://localhost:8089/SpringMVC/operateur/modify-operateur
+	
 	@PutMapping("/modify-operateur")
 	@ResponseBody
 	public Operateur modifyOperateur(@RequestBody OperateurRequest op) {
@@ -61,7 +60,7 @@ public class OperateurController {
 		p.setPassword(op.getPassword());
 		p.setPrenom(op.getPrenom());
 		p.setIdOperateur(op.getIdOperateur());
-		return operateurService.updateOperateur(p);
+		return operateurService.updateOperateurTest(p);
 	}
 
 	

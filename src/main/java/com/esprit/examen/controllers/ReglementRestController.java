@@ -3,7 +3,7 @@ package com.esprit.examen.controllers;
 import java.util.Date;
 import java.util.List;
 
-//import com.esprit.examen.entities.Facture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ public class ReglementRestController {
     IReglementService reglementService;
 
 
-    // http://localhost:8089/SpringMVC/reglement/add-reglement
+    
     @PostMapping("/add-reglement")
     @ResponseBody
     public Reglement addReglement(@RequestBody ReglementRequest r) {
@@ -33,31 +33,30 @@ public class ReglementRestController {
     	reg.setMontantPaye(r.getMontantPaye());
     	reg.setMontantRestant(r.getMontantRestant());
     	reg.setPayee(r.getPayee());
-        Reglement reglement = reglementService.addReglement(reg);
-        return reglement;
+    	return reglementService.addReglement(reg);
+        
     }
     @GetMapping("/retrieve-all-reglements")
     @ResponseBody
     public List<Reglement> getReglement() {
-        List<Reglement> list = reglementService.retrieveAllReglements();
-        return list;
+    	return reglementService.retrieveAllReglements();
+        
     }
 
-    // http://localhost:8089/SpringMVC/reglement/retrieve-reglement/8
+    
     @GetMapping("/retrieve-reglement/{reglement-id}")
     @ResponseBody
     public Reglement retrieveReglement(@PathVariable("reglement-id") Long reglementId) {
         return reglementService.retrieveReglement(reglementId);
     }
 
-    // http://localhost:8089/SpringMVC/reglement/retrieveReglementByFacture/8
-    @GetMapping("/retrieveReglementByFacture/{facture-id}")
+        @GetMapping("/retrieveReglementByFacture/{facture-id}")
     @ResponseBody
     public List<Reglement> retrieveReglementByFacture(@PathVariable("facture-id") Long factureId) {
         return reglementService.retrieveReglementByFacture(factureId);
     }
 
-    // http://localhost:8089/SpringMVC/reglement/getChiffreAffaireEntreDeuxDate/{startDate}/{endDate}
+    
     @GetMapping(value = "/getChiffreAffaireEntreDeuxDate/{startDate}/{endDate}")
     public float getChiffreAffaireEntreDeuxDate(
             @PathVariable(name = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
