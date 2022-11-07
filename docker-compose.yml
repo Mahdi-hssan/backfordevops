@@ -4,11 +4,11 @@ version: '3.7'
 services:
   # App backend service
   app-server:
-    container_name: backc
-    image: cheumas/back
+    container_name: image3
+    image: cheumas/image3
     # Configuration for building the docker image for the backend service
     build:
-      context: spring # Use an image built from the specified dockerfile in the `spring` directory.
+      context: '' # Use an image built from the specified dockerfile in the `spring` directory.
       dockerfile: Dockerfile
     ports:
       - "8089:8089" # Forward the exposed port 8089 on the container to port 8089 on the host machine
@@ -21,26 +21,9 @@ services:
       SPRING_DATASOURCE_PASSWORD: cheima
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
       - backend
-      - frontend
 
 
-  # Frontend Service
 
-  app-client:
-    container_name: frontc
-    image: cheumas/front
-    build:
-      context: angular # Use an image built from the specified dockerfile in the `angular` directory.
-      dockerfile: Dockerfile
-      args:
-        API_BASE_URL: http://127.0.0.1:8080/
-    ports:
-      - "8081:80" # Map the exposed port 80 on the container to port 8081 on the host machine
-    restart: always
-    depends_on:
-      - app-server
-    networks:
-      - frontend
 
   # Database Service (Mysql)
   db:
