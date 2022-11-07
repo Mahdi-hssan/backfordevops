@@ -31,7 +31,7 @@ pipeline {
          
         stage('JUNIT/MOCKITO TESTS'){
              steps{
-                sh 'mysql -h localhost -P 3306 -u root -p tpachato & mvn test -DskipTests'
+                sh 'mvn test -DskipTests'
              }
          }
 	
