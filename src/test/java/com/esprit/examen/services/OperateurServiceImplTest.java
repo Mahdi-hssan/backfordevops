@@ -66,7 +66,7 @@ public class OperateurServiceImplTest {
 	    public void UpdateOperateurTest() {
 	    	when(operateurRepository.save(operateur1)).thenReturn(operateur1);
 	    	assertNotNull(operateur1);
-	    	assertEquals(operateur1, operateurService.updateOperateur(operateur1));
+	    	assertEquals(operateur1, operateurService.updateOperateurTest(operateur1));
 	    	System.out.println("Update operators works!");
 	    }
 	    
