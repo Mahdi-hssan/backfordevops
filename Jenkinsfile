@@ -17,21 +17,15 @@ pipeline {
                 
             }
          }
-        /*stage('MVN CLEAN') { 
-            steps { 
-               sh' mvn clean install -DskipTests' 
-                
-            }
-         }*/
 
-          stage('MVN COMPILE') { 
+        stage('MVN COMPILE') { 
             steps { 
                sh' mvn compile' 
                 
             }
          }
 		 
-		 stage("Unit / Mockito tests") {
+		stage("Unit / Mockito tests") {
 			steps {
 				sh 'mvn test -DskipTests'
 			}
@@ -45,7 +39,7 @@ pipeline {
 				}
 			}
 		}
-		/*
+		
 		stage('clean et packaging'){
 			steps {
 				sh 'mvn clean package -DskipTests'
@@ -90,7 +84,7 @@ pipeline {
                     sh "docker-compose up -d  "
                  } 
              } 
-        }*/
+        }
    }
 }
 
