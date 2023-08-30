@@ -49,7 +49,7 @@ pipeline {
 		
     	stage ('NEXUS DEPLOY') {
     	    steps {
-                sh 'mvn deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://192.168.1.11:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dmaven.wagon.http.ssl.trust.all=true -Dmaven.wagon.http.ssl.hostname.verifier=allowAll'
+                sh 'mvn deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://192.168.1.11:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.0.jar -DskipTests -Dusername=admin -Dpassword=nexus -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dmaven.wagon.http.ssl.trust.all=true -Dmaven.wagon.http.ssl.hostname.verifier=allowAll'
     	    }
         }
 		
